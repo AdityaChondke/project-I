@@ -21,7 +21,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-
 import { TrendingUp } from "lucide-react"
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
 import {
@@ -39,6 +38,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 import { Bar, BarChart } from "recharts"
+import Tour from '../tour'
  
 
  
@@ -65,6 +65,7 @@ export default function Dashboard() {
   
   const invoices = [
     {
+      id: "fund-a",
       invoice: "Fund A",
       paymentStatus: "14.61",
       totalAmount: "5000.00",
@@ -72,6 +73,7 @@ export default function Dashboard() {
       paymentMethodB: "1.18",
     },
     {
+      id: "fund-b",
       invoice: "Fund B",
       paymentStatus: "12.85",
       totalAmount: "7000.00",
@@ -79,6 +81,7 @@ export default function Dashboard() {
       paymentMethodB: "1.18",
     },
     {
+      id: "fund-c",
       invoice: "Fund C",
       paymentStatus: "7.25",
       totalAmount: "10000.00",
@@ -90,6 +93,7 @@ export default function Dashboard() {
 
   
   return (
+    <>
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
@@ -104,7 +108,7 @@ export default function Dashboard() {
                               </BreadcrumbItem>
                               <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="/dashboard">Investments</BreadcrumbLink>
+                  <BreadcrumbLink  href="/dashboard">Investments</BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 
@@ -117,11 +121,11 @@ export default function Dashboard() {
             <div className="aspect-video rounded-xl bg-muted/50" >
             <Card>
       <CardHeader>
-        <CardTitle>Fund A</CardTitle>  
+        <CardTitle >Fund A</CardTitle>  
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
-          <AreaChart
+          <AreaChart id='fund-a-graph'
             accessibilityLayer
             data={chartData}
             margin={{
@@ -311,7 +315,7 @@ export default function Dashboard() {
       </TableHeader>
       <TableBody>
         {invoices.map((invoice) => (
-          <TableRow key={invoice.invoice}>
+          <TableRow id={invoice.id} key={invoice.invoice}>
             <TableCell className="font-medium">{invoice.invoice}</TableCell>
             <TableCell>{invoice.paymentStatus}</TableCell>
             <TableCell>{invoice.paymentMethod}</TableCell>
@@ -332,5 +336,7 @@ export default function Dashboard() {
         </div>
       </SidebarInset>
     </SidebarProvider>
+    <Tour/>
+  </>
   )
 }
