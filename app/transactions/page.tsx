@@ -24,59 +24,28 @@ import {
 
 
 export default function Transactions() {
-  const chartData = [
-    { month: "January", desktop: 186, mobile: 80 },
-    { month: "February", desktop: 305, mobile: 200 },
-    { month: "March", desktop: 237, mobile: 120 },
-    { month: "April", desktop: 73, mobile: 190 },
-    { month: "May", desktop: 209, mobile: 130 },
-    { month: "June", desktop: 214, mobile: 140 },
-  ]
   
-  const invoices = [
-    {
-      invoice: "INV001",
-      paymentStatus: "Paid",
-      totalAmount: "$250.00",
-      paymentMethod: "Credit Card",
-    },
-    {
-      invoice: "INV002",
-      paymentStatus: "Pending",
-      totalAmount: "$150.00",
-      paymentMethod: "PayPal",
-    },
-    {
-      invoice: "INV003",
-      paymentStatus: "Unpaid",
-      totalAmount: "$350.00",
-      paymentMethod: "Bank Transfer",
-    },
-    {
-      invoice: "INV004",
-      paymentStatus: "Paid",
-      totalAmount: "$450.00",
-      paymentMethod: "Credit Card",
-    },
-    {
-      invoice: "INV005",
-      paymentStatus: "Paid",
-      totalAmount: "$550.00",
-      paymentMethod: "PayPal",
-    },
-    {
-      invoice: "INV006",
-      paymentStatus: "Pending",
-      totalAmount: "$200.00",
-      paymentMethod: "Bank Transfer",
-    },
-    {
-      invoice: "INV007",
-      paymentStatus: "Unpaid",
-      totalAmount: "$300.00",
-      paymentMethod: "Credit Card",
-    },
-  ]
+
+   const recentTransactions = [
+        {
+            fund: "Fund A",
+            description: "$500K capital call",
+            date: "2024-11-15",
+            status: "Completed"
+        },
+        {
+            fund: "Fund B",
+            description: "$200K distribution received",
+            date: "2024-12-01",
+            status: "Completed"
+        },
+        {
+            fund: "Fund C",
+            description: "Additional $300K commitment added",
+            date: "2025-01-10",
+            status: "Pending"
+        }
+    ]
 
   
   return (
@@ -106,34 +75,34 @@ export default function Transactions() {
          
           <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" >
 
-    <Table>
-      <TableCaption>A list of your recent transcations.</TableCaption>
-      <TableHeader>
-        <TableRow>
-          <TableHead className="w-[100px]">Invoice</TableHead>
-          <TableHead>Status</TableHead>
-          <TableHead>Method</TableHead>
-         
-          <TableHead className="text-right">Amount</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {invoices.map((invoice) => (
-          <TableRow key={invoice.invoice}>
-            <TableCell className="font-medium">{invoice.invoice}</TableCell>
-            <TableCell>{invoice.paymentStatus}</TableCell>
-            <TableCell>{invoice.paymentMethod}</TableCell>
-            <TableCell className="text-right">{invoice.totalAmount}</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-      <TableFooter>
-        <TableRow>
-          <TableCell colSpan={3}>Total</TableCell>
-          <TableCell className="text-right">$2,500.00</TableCell>
-        </TableRow>
-      </TableFooter>
-    </Table>
+              <Table>
+                <TableCaption>A list of your recent transcations.</TableCaption>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-[100px]">Fund</TableHead>
+                    <TableHead>Description</TableHead>
+                    <TableHead>Date</TableHead>
+                  
+                    <TableHead className="text-right">Status</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {recentTransactions.map((transcation) => (
+                    <TableRow key={transcation.fund}>
+                      <TableCell className="font-medium">{transcation.fund}</TableCell>
+                      <TableCell>{transcation.description}</TableCell>
+                      <TableCell>{transcation.date}</TableCell>
+                      <TableCell className="text-right">{transcation.status}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+                {/* <TableFooter>
+                  <TableRow>
+                    <TableCell colSpan={3}>Total</TableCell>
+                    <TableCell className="text-right">$2,500.00</TableCell>
+                  </TableRow>
+                </TableFooter> */}
+              </Table>
 
           </div>
         </div>

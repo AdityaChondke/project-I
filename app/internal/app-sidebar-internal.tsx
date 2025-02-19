@@ -14,19 +14,24 @@ import {
   PieChart,
   Settings2,
   SquareTerminal,
+  ShieldCheck,
+  Ban,
+  ClipboardMinus,
+  ClipboardPlus,
+  CircleDollarSign,
+  Bell
 } from "lucide-react"
-import LogoColor from "../public/logo-color.svg"
-import { NavMain } from "./nav-main"
-import { NavProjects } from "./nav-projects"
-import { NavUser } from "./nav-user"
-import { TeamSwitcher } from "./team-switcher"
+import { NavMain } from "./nav-main-internal"
+import { NavProjects } from "./nav-projects-internal"
+import { NavUser } from "./nav-user-internal"
+
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "@/components/ui/sidebar"
 
 // This is sample data.
 const data = {
   user: {
-    name: "User A",
-    email: "username@example.com",
+    name: "Admin User",
+    email: "admin@projectI.com",
     avatar: "/avatars/shadcn.jpg",
   },
   teams: [
@@ -48,46 +53,50 @@ const data = {
   ],
   navMain: [
     {
-      title: "Dashboard",
-      url: "/dashboard",
+      title: "OverView",
+      url: "/internal/overview",
       icon: SquareTerminal,
       isActive: true,
       items: [
-        
+        // {
+        //   title: "OverView",
+        //   url: "/internal/overview",
+        // },
         {
-          title: "Investments",
-          url: "/dashboard",
-        },
-        {
-          title: "Transactions",
-          url: "/transactions",
+          title: "Investor Onboarding Queue",
+          url: "/internal/onboarding",
         }
         ,
         {
-          title: "Reports & Downloads",
-          url: "/reports",
+          title: "KYC & Compliance Tracker",
+          url: "/internal/kyc",
+        }
+        ,
+        {
+          title: "Document Management",
+          url: "/internal/documents",
         }
       ],
     },
-    {
-      title: "Explore",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Popular Funds",
-          url: "#",
-        },
-        {
-          title: "Compare Funds",
-          url: "#",
-        },
-        {
-          title: "Collections",
-          url: "#",
-        },
-      ],
-    },
+    // {
+    //   title: "Explore",
+    //   url: "#",
+    //   icon: Bot,
+    //   items: [
+    //     {
+    //       title: "Popular Funds",
+    //       url: "#",
+    //     },
+    //     {
+    //       title: "Compare Funds",
+    //       url: "#",
+    //     },
+    //     {
+    //       title: "Collections",
+    //       url: "#",
+    //     },
+    //   ],
+    // },
     // {
     //   title: "Documentation",
     //   url: "#",
@@ -111,36 +120,61 @@ const data = {
     //     },
     //   ],
     // },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "Service Request",
-          url: "/service-request",
-        },
-        {
-          title: "General",
-          url: "#",
-        },
+    // {
+    //   title: "Quick Actions Panel",
+    //   url: "#",
+    //   icon: Settings2,
+    //   items: [
+    //     {
+    //       title: "Approve KYC",
+    //       url: "/service-request",
+    //     },
+    //     {
+    //       title: "Reject Investor",
+    //       url: "#",
+    //     },
         
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
+    //     {
+    //       title: "Request Additional Docs",
+    //       url: "#",
+    //     },
+    //     {
+    //       title: "Verify Source of Funds ",
+    //       url: "#",
+    //     },
+    //     {
+    //       title: "Notify Investor",
+    //       url: "#",
+    //     },
+    //   ],
+    // },
   ],
   projects: [
     {
-      name: "Investment Opportunities",
-      url: "/time-sensitive",
-      icon: PieChart,
+      name: "Approve KYC",
+      url: "#",
+      icon: ShieldCheck,
+    },
+    {
+      name: "Reject Investor",
+      url: "#",
+      icon: Ban,
+    },
+    
+    {
+      name: "Request Additional Docs",
+      url: "#",
+      icon: ClipboardPlus,
+    },
+    {
+      name: "Verify Source of Funds ",
+      url: "#",
+      icon: CircleDollarSign,
+    },
+    {
+      name: "Notify Investor",
+      url: "#",
+      icon: Bell,
     },
     // {
     //   name: "Sales & Marketing",
@@ -159,7 +193,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <div className='pt-4 cursor-pointer'  onClick={() => redirect('/dashboard')}> 
+        <div className='pt-4 cursor-pointer'  onClick={() => redirect('/internal/overview')}> 
                 <Image alt='logo' src='/logo-no-background.svg' width={200} height={100}/>
               </div>
         {/* <TeamSwitcher teams={data.teams} /> */}

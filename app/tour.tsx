@@ -45,8 +45,14 @@ export default function Tour() {
           styles={{
             options: {
               zIndex: 10000,
+              primaryColor: '#000000',
             },
+            buttonNext: {
+                background: '#000000'
+            },
+           
           }}
+        
         />
       );
 }

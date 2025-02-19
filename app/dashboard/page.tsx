@@ -21,8 +21,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { TrendingUp } from "lucide-react"
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
+import { PieChart, TrendingUp } from "lucide-react"
+import { Area, AreaChart, CartesianGrid, Label, Pie, XAxis } from "recharts"
 import {
   Card,
   CardContent,
@@ -37,12 +37,13 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { Bar, BarChart } from "recharts"
 import Tour from '../tour'
+import PieChartComponent from '../piechart/page'
  
 
+
  
-const chartConfig = {
+const lineChartConfig = {
   desktop: {
     label: "Total",
     color: "hsl(var(--chart-1))",
@@ -53,45 +54,63 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export default function Dashboard() {
-  const chartData = [
-    { month: "January", desktop: 186, mobile: 80 },
-    { month: "February", desktop: 305, mobile: 200 },
-    { month: "March", desktop: 237, mobile: 120 },
-    { month: "April", desktop: 73, mobile: 190 },
-    { month: "May", desktop: 209, mobile: 130 },
-    { month: "June", desktop: 214, mobile: 140 },
-  ]
-  
-  const invoices = [
-    {
-      id: "fund-a",
-      invoice: "Fund A",
-      paymentStatus: "14.61",
-      totalAmount: "5000.00",
-      paymentMethod: "0.17",
-      paymentMethodB: "1.18",
-    },
-    {
-      id: "fund-b",
-      invoice: "Fund B",
-      paymentStatus: "12.85",
-      totalAmount: "7000.00",
-      paymentMethod: "0.15",
-      paymentMethodB: "1.18",
-    },
-    {
-      id: "fund-c",
-      invoice: "Fund C",
-      paymentStatus: "7.25",
-      totalAmount: "10000.00",
-      paymentMethod: "0.01",
-      paymentMethodB: "- 4.19",
-    },
-    
-  ]
 
+export default function Dashboard() {
   
+  
+  const fundChartData = [
+    { month: "January", fundA: 4800000, fundB: 3200000, fundC: 1750000, fundD: 1050000 },
+    { month: "February", fundA: 4700000, fundB: 3150000, fundC: 1720000, fundD: 1035000 },
+    { month: "March", fundA: 4900000, fundB: 3250000, fundC: 1780000, fundD: 1060000 },
+    { month: "April", fundA: 4850000, fundB: 3180000, fundC: 1765000, fundD: 1045000 },
+    { month: "May", fundA: 4950000, fundB: 3280000, fundC: 1800000, fundD: 1070000 },
+    { month: "June", fundA: 5000000, fundB: 3300000, fundC: 1820000, fundD: 1080000 }
+];
+
+  const portfolioBreakdown = [
+    {
+        id: "fund-a",
+        fundName: "Fund A",
+        fundType: "Private Equity",
+        commitment: 5000000,
+        capitalCalled: 4000000,
+        nav: 4800000,
+        portfolioPercentage: "40%",
+        irr: "15.2%"
+    },
+    {
+        id: "fund-b",
+        fundName: "Fund B",
+        fundType: "Hedge Fund",
+        commitment: 3000000,
+        capitalCalled: "N/A",
+        nav: 3200000,
+        portfolioPercentage: "30%",
+        irr: "8.5%"
+    },
+    {
+        id: "fund-c",
+        fundName: "Fund C",
+        fundType: "Venture Capital",
+        commitment: 2000000,
+        capitalCalled: 1500000,
+        nav: 1750000,
+        portfolioPercentage: "20%",
+        irr: "12.0%"
+    },
+    {
+        id: "fund-d",
+        fundName: "Fund D",
+        fundType: "Real Estate",
+        commitment: 1000000,
+        capitalCalled: 900000,
+        nav: 1050000,
+        portfolioPercentage: "10%",
+        irr: "10.5%"
+    }
+];
+
+
   return (
     <>
     <SidebarProvider>
@@ -117,188 +136,87 @@ export default function Dashboard() {
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+          <div className="grid auto-rows-min gap-4 md:grid-cols-2">
             <div className="aspect-video rounded-xl bg-muted/50" >
-            <Card>
-      <CardHeader>
-        <CardTitle >Fund A</CardTitle>  
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig}>
-          <AreaChart id='fund-a-graph'
-            accessibilityLayer
-            data={chartData}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="dot" />}
-            />
-            <Area
-              dataKey="mobile"
-              type="natural"
-              fill="var(--color-mobile)"
-              fillOpacity={0.4}
-              stroke="var(--color-mobile)"
-              stackId="a"
-            />
-            <Area
-              dataKey="desktop"
-              type="natural"
-              fill="var(--color-desktop)"
-              fillOpacity={0.4}
-              stroke="var(--color-desktop)"
-              stackId="a"
-            />
-          </AreaChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter>
-        <div className="flex w-full items-start gap-2 text-sm">
-          <div className="grid gap-2">
-            <div className="flex items-center gap-2 font-medium leading-none">
-              Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-            </div>
-            <div className="flex items-center gap-2 leading-none text-muted-foreground">
-              January - June 2024
-            </div>
-          </div>
-        </div>
-      </CardFooter>
-             </Card>
-    
-            </div>
-            <div className="aspect-video rounded-xl bg-muted/50" >
-            <Card>
-      <CardHeader>
-        <CardTitle>Fund B</CardTitle>  
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig}>
-          <AreaChart
-            accessibilityLayer
-            data={chartData}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="dot" />}
-            />
-            <Area
-              dataKey="mobile"
-              type="natural"
-              fill="var(--color-mobile)"
-              fillOpacity={0.4}
-              stroke="var(--color-mobile)"
-              stackId="a"
-            />
-            <Area
-              dataKey="desktop"
-              type="natural"
-              fill="var(--color-desktop)"
-              fillOpacity={0.4}
-              stroke="var(--color-desktop)"
-              stackId="a"
-            />
-          </AreaChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter>
-        <div className="flex w-full items-start gap-2 text-sm">
-          <div className="grid gap-2">
-            <div className="flex items-center gap-2 font-medium leading-none">
-              Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-            </div>
-            <div className="flex items-center gap-2 leading-none text-muted-foreground">
-              January - June 2024
-            </div>
-          </div>
-        </div>
-      </CardFooter>
-             </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle >Fund A</CardTitle>  
+                </CardHeader>
+                <CardContent>
+                  <ChartContainer config={lineChartConfig}>
+                    <AreaChart id='fund-a-graph'
+                      accessibilityLayer
+                      data={fundChartData}
+                      margin={{
+                        left: 12,
+                        right: 12,
+                      }}
+                    >
+                      <CartesianGrid vertical={false} />
+                      <XAxis
+                        dataKey="month"
+                        tickLine={false}
+                        axisLine={false}
+                        tickMargin={8}
+                        tickFormatter={(value) => value.slice(0, 3)}
+                      />
+                      <ChartTooltip
+                        cursor={false}
+                        content={<ChartTooltipContent indicator="dot" />}
+                      />
+                      <Area
+                        dataKey="fundA"
+                        type="natural"
+                        fill="var(--color-mobile)"
+                        fillOpacity={0.4}
+                        stroke="var(--color-mobile)"
+                        stackId="a"
+                      />
+                      <Area
+                        dataKey="fundB"
+                        type="natural"
+                        fill="var(--color-desktop)"
+                        fillOpacity={0.4}
+                        stroke="var(--color-desktop)"
+                        stackId="a"
+                      />
+                      <Area
+                        dataKey="fundC"
+                        type="natural"
+                        fill="var(--color-desktop)"
+                        fillOpacity={0.4}
+                        stroke="var(--color-desktop)"
+                        stackId="a"
+                      />
+                        <Area
+                        dataKey="fundD"
+                        type="natural"
+                        fill="var(--color-mobile)"
+                        fillOpacity={0.4}
+                        stroke="var(--color-mobile)"
+                        stackId="a"
+                      />
+                    </AreaChart>
+                  </ChartContainer>
+                </CardContent>
+                <CardFooter>
+                  <div className="flex w-full items-start gap-2 text-sm">
+                    <div className="grid gap-2">
+                      <div className="flex items-center gap-2 font-medium leading-none">
+                        Trending up by 3.7% this month <TrendingUp className="h-4 w-4" />
+                      </div>
+                      <div className="flex items-center gap-2 leading-none text-muted-foreground">
+                        January - June 2024
+                      </div>
+                    </div>
+                  </div>
+                </CardFooter>
+              </Card>
             </div>
             <div className="aspect-video rounded-xl bg-muted/50" >
-            <Card>
-      <CardHeader>
-        <CardTitle>Fund C</CardTitle>  
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig}>
-          <AreaChart
-            accessibilityLayer
-            data={chartData}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="dot" />}
-            />
-            <Area
-              dataKey="mobile"
-              type="natural"
-              fill="var(--color-mobile)"
-              fillOpacity={0.4}
-              stroke="var(--color-mobile)"
-              stackId="a"
-            />
-            <Area
-              dataKey="desktop"
-              type="natural"
-              fill="var(--color-desktop)"
-              fillOpacity={0.4}
-              stroke="var(--color-desktop)"
-              stackId="a"
-            />
-          </AreaChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter>
-        <div className="flex w-full items-start gap-2 text-sm">
-          <div className="grid gap-2">
-            <div className="flex items-center gap-2 font-medium leading-none">
-              Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+                        <PieChartComponent/>
             </div>
-            <div className="flex items-center gap-2 leading-none text-muted-foreground">
-              January - June 2024
-            </div>
-          </div>
-        </div>
-      </CardFooter>
-             </Card>
-            </div>
+          
           </div>
           <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" >
 
@@ -307,29 +225,33 @@ export default function Dashboard() {
       <TableHeader>
         <TableRow>
           <TableHead className="w-[300px]">Fund Name</TableHead>
-          <TableHead>Daily NAV</TableHead>
-          <TableHead>Daily NAV change ($)</TableHead>
-          <TableHead>Daily NAV change( %)</TableHead>
-          <TableHead className="text-right">Current Value ($)</TableHead>
+          <TableHead>Fund Type</TableHead>
+          <TableHead>Commmitment ($)</TableHead>
+          <TableHead>Capital Called ($)</TableHead>
+          <TableHead>NAV ($)</TableHead>
+          <TableHead>% of Portfolio</TableHead>
+          <TableHead className="text-right">IRR (%)</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {invoices.map((invoice) => (
-          <TableRow id={invoice.id} key={invoice.invoice}>
-            <TableCell className="font-medium">{invoice.invoice}</TableCell>
-            <TableCell>{invoice.paymentStatus}</TableCell>
-            <TableCell>{invoice.paymentMethod}</TableCell>
-            <TableCell>{invoice.paymentMethodB}</TableCell>
-            <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+        {portfolioBreakdown.map((portfolio) => (
+          <TableRow id={portfolio.id} key={portfolio.fundName}>
+            <TableCell className="font-medium">{portfolio.fundName}</TableCell>
+            <TableCell>{portfolio.fundType}</TableCell>
+            <TableCell>{portfolio.commitment}</TableCell>
+            <TableCell>{portfolio.capitalCalled}</TableCell>
+            <TableCell>{portfolio.nav}</TableCell>
+            <TableCell>{portfolio.portfolioPercentage}</TableCell>
+            <TableCell className="text-right">{portfolio.irr}</TableCell>
           </TableRow>
         ))}
       </TableBody>
-      <TableFooter>
+      {/* <TableFooter>
         <TableRow>
           <TableCell colSpan={4}>Total</TableCell>
           <TableCell className="text-right">22,000.00</TableCell>
         </TableRow>
-      </TableFooter>
+      </TableFooter> */}
     </Table>
 
           </div>
