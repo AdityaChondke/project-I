@@ -22,7 +22,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { PieChart, TrendingUp } from "lucide-react"
-import { Area, AreaChart, CartesianGrid, Label, Pie, XAxis } from "recharts"
+import { Area, AreaChart, CartesianGrid, Label, Pie, XAxis, YAxis } from "recharts"
 import {
   Card,
   CardContent,
@@ -49,7 +49,7 @@ const lineChartConfig = {
     color: "hsl(var(--chart-1))",
   },
   mobile: {
-    label: "Fund A",
+    label: "Investments",
     color: "hsl(var(--chart-2))",
   },
 } satisfies ChartConfig
@@ -59,12 +59,12 @@ export default function Dashboard() {
   
   
   const fundChartData = [
-    { month: "January", fundA: 4800000, fundB: 3200000, fundC: 1750000, fundD: 1050000 },
-    { month: "February", fundA: 4700000, fundB: 3150000, fundC: 1720000, fundD: 1035000 },
-    { month: "March", fundA: 4900000, fundB: 3250000, fundC: 1780000, fundD: 1060000 },
-    { month: "April", fundA: 4850000, fundB: 3180000, fundC: 1765000, fundD: 1045000 },
-    { month: "May", fundA: 4950000, fundB: 3280000, fundC: 1800000, fundD: 1070000 },
-    { month: "June", fundA: 5000000, fundB: 3300000, fundC: 1820000, fundD: 1080000 }
+    { month: "January", fundA: 20000, fundB: 21000, fundC: 11000, fundD: 70000 },
+    { month: "February", fundA: 47000, fundB: 47000, fundC: 22000, fundD: 80000 },
+    { month: "March", fundA: 60000, fundB: 90000, fundC: 33000, fundD: 100000 },
+    { month: "April", fundA: 90000, fundB: 140000, fundC: 44000, fundD: 120000 },
+    { month: "May", fundA: 11000, fundB: 160000, fundC: 55000, fundD: 190000 },
+    { month: "June", fundA: 130000, fundB: 175000, fundC: 65000, fundD: 220000 }
 ];
 
   const portfolioBreakdown = [
@@ -72,41 +72,45 @@ export default function Dashboard() {
         id: "fund-a",
         fundName: "Fund A",
         fundType: "Private Equity",
-        commitment: 5000000,
-        capitalCalled: 4000000,
-        nav: 4800000,
-        portfolioPercentage: "40%",
-        irr: "15.2%"
+        commitment: 200000,
+        capitalCalled: 100000,
+        nav: 12,
+        quantity: 10000,
+        value: 120000,
+        distrubution: "10000"
     },
     {
         id: "fund-b",
         fundName: "Fund B",
         fundType: "Hedge Fund",
-        commitment: 3000000,
-        capitalCalled: "N/A",
-        nav: 3200000,
-        portfolioPercentage: "30%",
-        irr: "8.5%"
+        commitment: 300000,
+        capitalCalled: 150000,
+        nav: 16,
+        quantity: 10000,
+        value: 160000,
+        distrubution: "15000"
     },
     {
         id: "fund-c",
         fundName: "Fund C",
         fundType: "Venture Capital",
-        commitment: 2000000,
-        capitalCalled: 1500000,
-        nav: 1750000,
-        portfolioPercentage: "20%",
-        irr: "12.0%"
+        commitment: 100000,
+        capitalCalled: 50000,
+        nav: 12,
+        quantity: 5000,
+        value: 60000,
+        distrubution: "5000"
     },
     {
         id: "fund-d",
         fundName: "Fund D",
         fundType: "Real Estate",
-        commitment: 1000000,
-        capitalCalled: 900000,
-        nav: 1050000,
-        portfolioPercentage: "10%",
-        irr: "10.5%"
+        commitment: 500000,
+        capitalCalled: 200000,
+        nav: 19,
+        quantity: 10000,
+        value: 220000,
+        distrubution: "10000"
     }
 ];
 
@@ -140,7 +144,7 @@ export default function Dashboard() {
             <div className="aspect-video rounded-xl bg-muted/50" >
               <Card>
                 <CardHeader>
-                  <CardTitle >Fund A</CardTitle>  
+                  <CardTitle >Investments</CardTitle>  
                 </CardHeader>
                 <CardContent>
                   <ChartContainer config={lineChartConfig}>
@@ -160,6 +164,8 @@ export default function Dashboard() {
                         tickMargin={8}
                         tickFormatter={(value) => value.slice(0, 3)}
                       />
+                      {/* <YAxis
+                      /> */}
                       <ChartTooltip
                         cursor={false}
                         content={<ChartTooltipContent indicator="dot" />}
@@ -214,7 +220,8 @@ export default function Dashboard() {
               </Card>
             </div>
             <div className="aspect-video rounded-xl bg-muted/50" >
-                        <PieChartComponent/>
+            <PieChartComponent/>
+            {/* <PieChartComponent/> */}
             </div>
           
           </div>
@@ -228,9 +235,9 @@ export default function Dashboard() {
           <TableHead>Fund Type</TableHead>
           <TableHead>Commmitment ($)</TableHead>
           <TableHead>Capital Called ($)</TableHead>
-          <TableHead>NAV ($)</TableHead>
-          <TableHead>% of Portfolio</TableHead>
-          <TableHead className="text-right">IRR (%)</TableHead>
+          <TableHead>Current NAV ($)</TableHead>
+          <TableHead>Value ($)</TableHead>
+          <TableHead className="text-right">Distribution ($)</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -241,17 +248,18 @@ export default function Dashboard() {
             <TableCell>{portfolio.commitment}</TableCell>
             <TableCell>{portfolio.capitalCalled}</TableCell>
             <TableCell>{portfolio.nav}</TableCell>
-            <TableCell>{portfolio.portfolioPercentage}</TableCell>
-            <TableCell className="text-right">{portfolio.irr}</TableCell>
+            <TableCell>{portfolio.value}</TableCell>
+            <TableCell className="text-right">{portfolio.distrubution}</TableCell>
           </TableRow>
         ))}
       </TableBody>
-      {/* <TableFooter>
+      <TableFooter>
         <TableRow>
-          <TableCell colSpan={4}>Total</TableCell>
-          <TableCell className="text-right">22,000.00</TableCell>
+          <TableCell colSpan={5}>Total</TableCell>
+          <TableCell >560,000.00</TableCell>
+          <TableCell className="text-right">40,000.00</TableCell>
         </TableRow>
-      </TableFooter> */}
+      </TableFooter>
     </Table>
 
           </div>

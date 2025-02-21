@@ -21,10 +21,11 @@ import { Badge } from '@/components/ui/badge'
 export default function Login() {
  
     const [userName, setUserName] = useState('')
-    const [password, setPassword] = useState('')
-    const [OTP, setOTP] = useState('')
     const [email, setEmail] = useState('')
     const [valid , setValid] = useState(false)
+
+    const [login, setLogin] = useState(false)
+
     const investmentAssets = [
       "Equity (Stocks)",
       "Mutual Funds",
@@ -48,10 +49,14 @@ export default function Login() {
     );
   };
    useEffect(() =>{
-    if(userName.length > 0 && password.length >0){
+    if(userName.length > 0){
         setValid(true)
     }
-   },[userName, password])
+    if(login){
+      alert('hi')
+    setTimeout('',5000); redirect('/dashboard')
+    }
+   },[userName, login])
 
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-gray-50">
@@ -68,35 +73,38 @@ export default function Login() {
         
         <Label className='flex w-80'>UserName</Label>
         <Input placeholder='Username' value={userName} onChange={(e) => setUserName(e.target.value)} />
-        <Label className='flex w-80'>Password</Label>
+        {/* <Label className='flex w-80'>Password</Label>
         <Input placeholder='Password' type='password' value={password} onChange={(e) => setPassword(e.target.value)}/>
-       
-           <AlertDialog>
-      <AlertDialogTrigger asChild>
-      <Button disabled={!valid} className="flex h-10 w-full items-center justify-center rounded-md border text-sm transition-all focus:outline-none" variant="outline">Login</Button>
-      
-      </AlertDialogTrigger>
-     
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Scan QR to generate OTP</AlertDialogTitle>
-          <AlertDialogDescription asChild>
-            <Image width={500}
-      height={500} src='OTP.svg' alt='OTP'/>
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          
-          <Input placeholder='OTP' type='password' value={OTP} onChange={(e) => setOTP(e.target.value)}/>
-          
-          <AlertDialogAction disabled={!(OTP.length>0)} onClick={ () => redirect('/dashboard')}>Continue</AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-
-
-    <AlertDialog>
-     
+        */}
+         <AlertDialog>
+              <AlertDialogTrigger asChild>
+              <Button disabled={!valid}  
+              className="flex h-10 w-full items-center justify-center rounded-md border text-sm transition-all focus:outline-none" 
+              variant="outline">Login</Button>
+              
+              </AlertDialogTrigger>
+            
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Scan QR to generate OTP</AlertDialogTitle>
+                  <AlertDialogDescription asChild>
+                    <div onClick={() => redirect('/dashboard')}>
+                    <Image width={500}
+              height={500} src='OTP.svg' alt='OTP'/>
+              </div>
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  
+                  {/* <Input placeholder='OTP' type='password' value={OTP} onChange={(e) => setOTP(e.target.value)}/> */}
+                  
+                  {/* <AlertDialogAction  onClick={ }></AlertDialogAction> */}
+                </AlertDialogFooter>
+              </AlertDialogContent>
+          </AlertDialog>
+        
+        <AlertDialog>
+  
       <AlertDialogTrigger asChild>
       <Button disabled={!valid} className="flex h-10 w-full items-center justify-center rounded-md border text-sm transition-all focus:outline-none" variant="outline">Sign Up</Button>
       

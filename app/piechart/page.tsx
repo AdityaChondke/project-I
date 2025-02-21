@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-import { TrendingUp } from "lucide-react"
 import { Label, Pie, PieChart } from "recharts"
 
 import {
@@ -19,17 +18,15 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 const chartData = [
-  { browser: "Private Equity", nav: 5000000, fill: "var(--color-chrome)" },
-  { browser: "Hedge Fund", nav: 3300000, fill: "var(--color-safari)" },
-  { browser: "Venture Capital", nav: 1820000, fill: "var(--color-firefox)" },
-  { browser: "Real Estate", nav: 1080000, fill: "var(--color-edge)" },
+  { fund: "Private Equity", nav: 10000, fill: "var(--color-chrome)" },
+  { fund: "Hedge Fund", nav: 15000, fill: "var(--color-safari)" },
+  { fund: "Venture Capital", nav: 5000, fill: "var(--color-firefox)" },
+  { fund: "Real Estate", nav: 10000, fill: "var(--color-edge)" },
 
 ]
 
 const chartConfig = {
-    nav: {
-    label: "Investments",
-  },
+
   chrome: {
     label: "Private Equity",
     color: "hsl(var(--chart-1))",
@@ -72,7 +69,7 @@ export default function PieChartComponent() {
                 <Pie
                   data={chartData}
                   dataKey="nav"
-                  nameKey="Invesements"
+                  nameKey="fund"
                   innerRadius={60}
                   strokeWidth={5}
                 >

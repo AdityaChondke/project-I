@@ -25,8 +25,8 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } fr
 // This is sample data.
 const data = {
   user: {
-    name: "User A",
-    email: "username@example.com",
+    name: "Welcome Hari",
+    email: "hari@example.com",
     avatar: "/avatars/shadcn.jpg",
   },
   teams: [

@@ -42,7 +42,7 @@ export default function Login() {
       <div className='m-[-80px]'> 
         <Image alt='logo' src='/logo-color.svg' width={200} height={200}/>
       </div>
-        <h3 className="text-xl  font-semibold">Internal Adim Portal</h3>
+        <h3 className="text-xl  font-semibold">Manager Portal</h3>
         <p className="text-sm text-gray-500">
           Use your email and password to login
         </p>
@@ -57,6 +57,12 @@ export default function Login() {
         transition-all focus:outline-none" 
         onClick={() => handleLogin()}
         variant="outline">Login</Button>
+         <Button disabled={!valid} 
+        className="flex h-10 w-full items-center 
+        justify-center rounded-md border text-sm 
+        transition-all focus:outline-none" 
+        onClick={() =>  redirect('/internal/overview')}
+        variant="outline">SSO</Button>
  
       </div>
     

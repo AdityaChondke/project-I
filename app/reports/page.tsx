@@ -93,7 +93,7 @@ export default function Reports() {
           <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" >
 
     <Table>
-      <TableCaption>Published Reports & Downloads Links</TableCaption>
+      <TableCaption>Published Reports & Downloads Lin</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead className="w-[300px]">Report Name</TableHead>
