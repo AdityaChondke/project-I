@@ -29,9 +29,13 @@ export default function Tour() {
         content: "Click here to explore trending investment options.",
       },
       {
+        target: "#time",
+        content: "Click here to see time sensitive Investment Opportunities.",
+      },
+      {
         target: "#Settings",
         content: "Click here to change your settings and raise service request.",
-      },
+      }
       
     ];
 

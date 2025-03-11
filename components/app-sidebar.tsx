@@ -26,7 +26,7 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } fr
 const data = {
   user: {
     name: "Welcome Hari",
-    email: "hari@example.com",
+    email: "hari@projecti.com",
     avatar: "/avatars/shadcn.jpg",
   },
   teams: [

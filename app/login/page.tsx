@@ -68,7 +68,7 @@ export default function Login() {
       </div>
         <h3 className="text-xl  font-semibold">Sign In</h3>
         <p className="text-sm text-gray-500">
-          Use your email and password to sign in
+          Enter username to login
         </p>
         
         <Label className='flex w-80'>UserName</Label>
@@ -86,7 +86,7 @@ export default function Login() {
             
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle>Scan QR to generate OTP</AlertDialogTitle>
+                  <AlertDialogTitle>Scan QR to login</AlertDialogTitle>
                   <AlertDialogDescription asChild>
                     <div onClick={() => redirect('/dashboard')}>
                     <Image width={500}

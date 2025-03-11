@@ -32,10 +32,10 @@ export function NavProjects({
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroupLabel>Time Sensitive</SidebarGroupLabel>
+      <SidebarGroupLabel id='time'>Time Sensitive</SidebarGroupLabel>
       <SidebarMenu>
         {projects.map((item) => (
-          <SidebarMenuItem key={item.name}>
+          <SidebarMenuItem  key={item.name}>
             <SidebarMenuButton asChild>
               <a href={item.url}>
                 <item.icon />
